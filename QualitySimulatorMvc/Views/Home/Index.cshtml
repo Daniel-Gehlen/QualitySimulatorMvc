@@ -1,0 +1,78 @@
+@model WebFrontend.Controllers.Data
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Quality Simulator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 5px 0;
+        }
+        form {
+            margin: 15px 0;
+        }
+        input[type="text"] {
+            padding: 8px;
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            padding: 8px 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quality Simulator</h1>
+    
+    <h2>Electronic Components</h2>
+    <ul>
+        @foreach (var component in Model.ElectronicComponents)
+        {
+            <li>
+                @component 
+                <form method="post" asp-action="RemoveComponent">
+                    <input type="hidden" name="componentName" value="@component" />
+                    <input type="submit" value="Remove" />
+                </form>
+            </li>
+        }
+    </ul>
+
+    <h2>Quality Standards</h2>
+    <ul>
+        @foreach (var standard in Model.QualityStandards)
+        {
+            <li>
+                @standard 
+                <form method="post" asp-action="RemoveQualityStandard">
+                    <input type="hidden" name="qualityStandard" value="@standard" />
+                    <input type="submit" value="Remove" />
+                </form>
+            </li>
+        }
+    </ul>
+
+    <h2>Add Electronic Component</h2>
+    <form method="post" asp-action="AddComponent">
+        <input type="text" name="componentName" placeholder="Component Name" required />
+        <input type="submit" value="Add Component" />
+    </form>
+
+    <h2>Add Quality Standard</h2>
+    <form method="post" asp-action="AddQualityStandard">
+        <input type="text" name="qualityStandard" placeholder="Quality Standard" required />
+        <input type="submit" value="Add Quality Standard" />
+    </form>
+</body>
+</html>
